@@ -1,0 +1,15 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="details content">
+  <h2 class="capitals"><%= blog.title %></h2>
+  <div class="line"></div>
+  <div class="content">
+    <p><%= blog.body %></p>
+  </div>
+  <a class="delete" data-doc="<%=blog._id%>">
+    <img src="/trashcan.svg" alt="Delete Post" />
+  </a>
+</div>
+
+<script src="/js/index.js"></script>
+<%- include('../partials/footer.ejs') %>
