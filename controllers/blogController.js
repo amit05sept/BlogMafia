@@ -29,7 +29,7 @@ const blog_delete = (req, res) => {
   Blog.findByIdAndDelete(id)
     .then((result) => {
       if (!result) {
-        return res.status(404).render("404", { title: "404" });
+        return res.status(404).render("error", { title: "404" });
       }
       res.json({ redirect: "/" });
     })
@@ -42,7 +42,7 @@ const blog_details = (req, res) => {
     .then((result) =>
       res.render("blogs/details", { title: result.title, blog: result })
     )
-    .catch((err) => res.status(404).render("404", { title: "Blog not Found" }));
+    .catch((err) => res.status(404).render("error", { title: "Blog not Found" }));
 };
 
 module.exports = {
