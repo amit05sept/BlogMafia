@@ -6,7 +6,8 @@ const secretKey = process.env.SECRET_KEY;
 const authUser = (req, res, next) => {
     const token = req.cookies.jwt;
     if (!token) {
-        console.log('andr hai bhaiya');
+        // console.log('andr hai bhaiya');
+        res.locals.user = null;
       return res.redirect("/user/login");
     } else {
       jwt.verify(token, secretKey, (err, Data) => {
@@ -21,6 +22,7 @@ const authUser = (req, res, next) => {
   
   // check which user is loged in
   const checkUser = (req, res, next) => {
+    res.locals.user = null;
     const token = req.cookies.jwt;
     if (!token) {
       res.locals.user = null;

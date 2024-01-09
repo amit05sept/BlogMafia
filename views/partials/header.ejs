@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,8 +15,8 @@
       </div>
       <ul>
         <li><a href="/">Blogs</a></li>
-        <% if(user){%>
-          <li>Welcome, <%- user.email%></li>
+        <% if(typeof user !== 'undefined' && user !== null){%>
+          <li>Welcome, <%- user?.username%></li>
           <li><a href="/user/logout">Log out</a></li>
           <% } else {%>
           <li><a href="/user/login">Log in</a></li>
