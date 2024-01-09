@@ -7,7 +7,7 @@ const blog_index = (req, res) => {
     .then((result) =>
       res.render("blogs/index", { title: "Blogs", blogs: result })
     )
-    .catch((err) => console.log(err));
+    .catch((err) => console.log("blog_index",err));
 };
 
 const blog_create_post = (req, res) => {
@@ -17,7 +17,7 @@ const blog_create_post = (req, res) => {
   blog
     .save()
     .then((result) => res.redirect("/"))
-    .catch((err) => console.log(err));
+    .catch((err) => console.log("blog_create_post",err));
 };
 
 const blog_create_get = (req, res) => {
@@ -33,7 +33,7 @@ const blog_delete = (req, res) => {
       }
       res.json({ redirect: "/" });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log("blog_delete", err));
 };
 
 const blog_details = (req, res) => {
@@ -42,7 +42,9 @@ const blog_details = (req, res) => {
     .then((result) =>
       res.render("blogs/details", { title: result.title, blog: result })
     )
-    .catch((err) => res.status(404).render("error", { title: "Blog not Found" }));
+    .catch((err) =>
+      res.status(404).render("error", { title: "Blog not Found" })
+    );
 };
 
 module.exports = {

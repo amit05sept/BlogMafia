@@ -5,7 +5,20 @@ trascan.addEventListener("click", (e) => {
   fetch(endpoint, {
     method: "DELETE",
   })
-    .then((response) => response.json())
-    .then((data)=>window.location.href=data.redirect)
-    .catch((err) => console.log(err));
+    .then((response) => {
+      if (response.redirected) {
+        // Handle redirect
+        window.location.href = response.url;
+      } else {
+        // Process the response as JSON if not redirected
+        return response.json();
+      }
+    })
+    .then((data) => {
+      // Handle JSON response if not redirected
+      if (data) {
+        window.location.href = data.redirect;
+      }
+    })
+    .catch((err) => console.log("index.js line 23",err));
 });

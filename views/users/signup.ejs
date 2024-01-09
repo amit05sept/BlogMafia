@@ -3,15 +3,15 @@
 <!-- <form action="/signup" method="post"> -->
 <form>
   <h2>Sign Up</h2>
-  <label for="name">Name</label>
+  <label for="username">Name</label>
   <input
-    id="name"
-    name="name"
+    id="username"
+    name="username"
     type="text"
-    placeholder="name"
+    placeholder="username"
     autofocus
     required />
-  <div class="name error"></div>
+  <div class="username error"></div>
   <label for="email">Email</label>
   <input
     id="email"
@@ -34,22 +34,35 @@
   const form = document.querySelector("form");
   const emailError = document.querySelector(".email.error");
   const passwordError = document.querySelector(".password.error");
+  const usernameError = document.querySelector(".username.error");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = this.email.value;
     const password = this.password.value;
-    //console.log(this.email.value,this.password.value);
+    const username =this.username.value;
+
+    // reseting errors
+    emailError.textContent = "";
+    passwordError.textContent = "";
+    usernameError.textContent = "";
+
     try {
       const res = await fetch("/user/signup", {
         method: "POST",
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password ,username}),
         headers: { "Content-Type": "application/json" },
       });
-      const user = await res.json();
-      // err-> email err, ya password err
+      const data = await res.json();
+
       //errors print 
-      console.log(user);
+      if(data.errors){
+        emailError.textContent = data.errors['email'];
+        passwordError.textContent = data.errors['password'];
+        usernameError.textContent = data.errors['username'];
+      }else{
+        location.assign('/');
+      }
     } catch (err) {
         // err -> when there is problem in fetching the post request
         console.log(err);
