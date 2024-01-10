@@ -12,8 +12,8 @@ const blog_index = (req, res) => {
 
 const blog_create_post = (req, res) => {
   if (!req.body) res.send("error");
-
   const blog = new Blog(req.body);
+  blog.author = res.locals.user.username;
   blog
     .save()
     .then((result) => res.redirect("/"))
@@ -35,12 +35,15 @@ const blog_delete = (req, res) => {
     })
     .catch((err) => console.log("blog_delete", err));
 };
-
+ 
 const blog_details = (req, res) => {
   const id = req.params.id;
+  // console.log(id);
   Blog.findById(id)
     .then((result) =>
-      res.render("blogs/details", { title: result.title, blog: result })
+     { 
+      // console.log(result);
+      res.render("blogs/details", { title: result.title, blog: result })}
     )
     .catch((err) =>
       res.status(404).render("error", { title: "Blog not Found" })

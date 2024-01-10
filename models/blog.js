@@ -14,7 +14,17 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
+  author:{
+    type:String,
+    ref:'user',
+    required:true,
+  },
+  likes:{
+    type:Array,
+  }
 },{timestamps:true});
+
+
 
 
 const Blog = mongoose.model('Blog',blogSchema);

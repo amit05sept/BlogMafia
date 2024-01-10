@@ -1,14 +1,26 @@
 <%- include('../partials/header.ejs') %>
 
 <div class="details content">
-  <h2 class="capitals"><%= blog.title %></h2>
+  <header>
+    <h2 class="capitals">
+      <%= blog.title %><a class="like-post icon" data-doc="<%=blog._id%>">
+        <img class="like-post-icon" src="/likeIcon.svg" alt="Like Post" />
+      </a>
+    </h2>
+    <div class="author">
+      <p><span><%=blog.author%></span><span> , <%=blog.createdAt.toDateString()%></span></p>
+    </div>
+  </header>
+
   <div class="line"></div>
   <div class="content">
     <p><%= blog.body %></p>
   </div>
-  <a class="delete" data-doc="<%=blog._id%>">
+  <% if((typeof user !== 'undefined' && user !== null)&&(blog.author===user.username)){%>
+  <a class="delete icon" data-doc="<%=blog._id%>">
     <img src="/trashcan.svg" alt="Delete Post" />
   </a>
+  <% }%>
 </div>
 
 <script src="/js/index.js"></script>

@@ -8,6 +8,12 @@
     <a class="single" href="/blogs/<%= blog._id %>">
       <h3 class="title"><%= blog.title %></h3>
       <p class="snippet"><%= blog.snippet %></p>
+      <div class="author index-author">
+        <p>
+          <span><%=blog.author%></span
+          ><span> , <%=blog.createdAt.toDateString()%></span>
+        </p>
+      </div>
     </a>
   </div>
   <% }) %> <% } else{%>
