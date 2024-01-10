@@ -12,7 +12,7 @@ const app = express();
 const port = process.env.PORT||3000;
 
 //database connect  mongoDb
-const mongoUrl =process.env.MONGO_URL;
+const mongoUrl ='mongodb+srv://gladiatorpandey:cD0YLRAQl4z2vYyj@cluster0.dsbtzea.mongodb.net/APP?retryWrites=true&w=majority';
 
 mongoose
   .connect(mongoUrl)
