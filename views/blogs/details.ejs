@@ -4,23 +4,72 @@
   <header>
     <h2 class="capitals">
       <%= blog.title %><a class="like-post icon" data-doc="<%=blog._id%>">
-        <img class="like-post-icon" src="/likeIcon.svg" alt="Like Post" />
+        <% if((typeof user !== 'undefined' && user !==
+        null)&&(blog.likes.includes(user.email))){%>
+        <img
+          class="like-post-icon"
+          src="/likeIcon.svg"
+          alt="Like Post"
+          data-doc="<%=blog._id%>" />
+        <%}else{%>
+        <img
+          class="like-post-icon"
+          src="/likeIcon2.svg"
+          alt="Like Post"
+          data-doc="<%=blog._id%>" />
+        <%}%>
+        <span class="likeCount"
+          ><%= blog.likes.length>0?blog.likes.length:null %></span
+        >
       </a>
     </h2>
     <div class="author">
-      <p><span><%=blog.author%></span><span> , <%=blog.createdAt.toDateString()%></span></p>
+      <p>
+        <span><%=blog.author%></span
+        ><span> , <%=blog.createdAt.toDateString()%></span>
+      </p>
     </div>
   </header>
-
+  <div class="line"></div>
   <div class="line"></div>
   <div class="content">
-    <p><%= blog.body %></p>
+    <p><%- blog.body %></p>
   </div>
-  <% if((typeof user !== 'undefined' && user !== null)&&(blog.author===user.username)){%>
+  <% if((typeof user !== 'undefined' && user !==
+  null)&&(blog.author===user.username)){%>
   <a class="delete icon" data-doc="<%=blog._id%>">
     <img src="/trashcan.svg" alt="Delete Post" />
   </a>
   <% }%>
+  <br />
+  <div class="line"></div>
+  <div class="input-comment-box">
+    <form
+      class="comment-form"
+      action="/blogs/comment/create/<%=blog._id%>"
+      method="POST">
+      <label for="inputComment">Add your comment...</label>
+      <input
+        id="inputComment"
+        type="text"
+        name="inputComment"
+        placeholder="type your comment here..."
+        required />
+      <button>Add Comment</button>
+    </form>
+  </div>
+  <div class="line"></div>
+  <div class="commentContainer">
+    <% if(blog.comments.length>0){ blog.comments.reverse().forEach((comment)=>{%>
+    <div class="comment">
+      <p><%=comment.userCommented %></p>
+      <span class="commentDate"><%=comment.commentDate%></span>
+      <p><%=comment.commentText%></p>
+    </div>
+    <%})} else {%>
+    <p>add a comment...</p>
+    <%}%>
+  </div>
 </div>
 
 <script src="/js/index.js"></script>
