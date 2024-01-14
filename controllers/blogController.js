@@ -100,7 +100,7 @@ const blog_comment_post = async (req, res) => {
     blog.comments.push(blogcomment);
     await blog.save();
 
-    console.log(blog.comments);
+    // console.log(blog.comments);
     res.redirect(`/blogs/${id}`);
   } catch (err) {
     console.log(err);
